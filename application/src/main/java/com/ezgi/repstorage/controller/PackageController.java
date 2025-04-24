@@ -37,7 +37,7 @@ public class PackageController {
     public ResponseEntity<String> uploadPackage(@PathVariable("packageName") String packageName,
                                                 @PathVariable("version") String version,
                                                 @RequestParam("file") MultipartFile file,
-                                                @RequestPart("metaDataDto") @Valid MetaDataDto metaDataDto){
+                                                @RequestPart("metadata") @Valid MetaDataDto metaDataDto){
         try{
             storageService.saveFile(file, packageName, version);
 
