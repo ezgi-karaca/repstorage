@@ -7,5 +7,7 @@
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/storage-filesystem/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/storage-filesystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/storage-object/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/storage-object/src/main/resources" charset="UTF-8" />
   </component>
 </project>
