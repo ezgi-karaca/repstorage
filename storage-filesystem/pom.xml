@@ -27,5 +27,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ezgi.repstorage</groupId>
+            <artifactId>storage-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>

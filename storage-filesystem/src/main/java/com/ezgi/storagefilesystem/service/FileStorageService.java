@@ -1,30 +1,30 @@
 package com.ezgi.storagefilesystem.service;
 
 
+import com.ezgi.storagecommon.service.StorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-@Service
-public class FileStorageService {
-    private static final String STORAGE_DIRECTORY = "/storage/";
+@Service("fileStorageService")
+public class FileStorageService implements StorageService {
+    private static final String STORAGE_DIRECTORY = System.getProperty("user.dir") + "/storage/";
 
-    public String saveFile(MultipartFile file, String packageName, String version) throws IOException {
+    @Override
+    public void saveFile(MultipartFile file, String packageName, String version) throws IOException {
         String filePath = STORAGE_DIRECTORY + packageName + "/" + version + "/" + file.getOriginalFilename();
         File targetFile = new File(filePath);
 
         targetFile.getParentFile().mkdirs();
         file.transferTo(targetFile);
 
-        return filePath;
-
     }
 
-    public File getFile(String packageName, String version, String fileName) {
+    @Override
+    public InputStream getFile(String packageName, String version, String fileName) throws FileNotFoundException {
         String filePath = STORAGE_DIRECTORY + packageName + "/" + version + "/" + fileName;
-        return new File(filePath);
+        return new FileInputStream(new File(filePath));
     }
 
 }
