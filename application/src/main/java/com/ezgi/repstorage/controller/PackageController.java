@@ -3,8 +3,8 @@ package com.ezgi.repstorage.controller;
 import com.ezgi.repstorage.dto.MetaDataDto;
 import com.ezgi.repstorage.entity.PackageEntity;
 import com.ezgi.repstorage.service.PackageService;
+import com.ezgi.storagefilesystem.service.FileStorageService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -23,19 +23,18 @@ import java.io.InputStream;
 public class PackageController {
 
     private final PackageService packageService;
+    private final FileStorageService fileStorageService;
 
     @Autowired
-    public PackageController(PackageService packageService){
+    public PackageController(PackageService packageService, FileStorageService fileStorageService){
         this.packageService = packageService;
+        this.fileStorageService = fileStorageService;
     }
 
     @PostMapping("/{packageName}/{version}")
     public ResponseEntity<String> uploadPackage(@PathVariable String packageName, @PathVariable String version, @RequestParam("file") MultipartFile file, @RequestBody  @Valid MetaDataDto metaDataDto){
         try{
-            String filePath = "/storage/" + packageName + "/" + version + "/" + file.getOriginalFilename();
-            File dest = new File(filePath);
-            file.transferTo(dest);
-
+            String filePath = fileStorageService.saveFile(file, packageName, version);
 
             packageService.savePackage(metaDataDto);
 
@@ -58,10 +57,10 @@ public class PackageController {
             return new ResponseEntity<>("Package not found", HttpStatus.NOT_FOUND);
         }
 
-        String filePath = "/storage/" + packageName + "/" + version + "/" + fileName;
+
 
         try{
-            File file = new File(filePath);
+            File file = fileStorageService.getFile(packageName, version, fileName);
 
             if(!file.exists()){
                 return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);

@@ -12,9 +12,6 @@
         <module>application</module>
         <module>storage-filesystem</module>
         <module>storage-object</module>
-        <module>application</module>
-        <module>storage-filesystem</module>
-        <module>storage-object</module>
     </modules>
 
     <properties>
