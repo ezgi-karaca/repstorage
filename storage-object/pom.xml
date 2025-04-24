@@ -38,4 +38,12 @@
 
 
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>repsy</id>
+            <name>My Private Maven Repository on Repsy</name>
+            <url>https://repo.repsy.io/mvn/ezgikaraca/repstorage</url>
+        </repository>
+    </distributionManagement>
 </project>
